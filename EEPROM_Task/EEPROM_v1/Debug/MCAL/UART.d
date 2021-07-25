@@ -1,0 +1,8 @@
+MCAL/UART.d MCAL/UART.o: ../MCAL/UART.c ../MCAL/UART.h \
+ ../MCAL/../LIB/STD_TYPES.h ../MCAL/../LIB/BIT_MATH.h
+
+../MCAL/UART.h:
+
+../MCAL/../LIB/STD_TYPES.h:
+
+../MCAL/../LIB/BIT_MATH.h:
