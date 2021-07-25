@@ -1,0 +1,194 @@
+
+I2C_v1.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000122  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  00000176  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  00000176  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000001a8  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000080  00000000  00000000  000001e4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00000853  00000000  00000000  00000264  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 000005df  00000000  00000000  00000ab7  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   000003fc  00000000  00000000  00001096  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  000000c8  00000000  00000000  00001494  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    00000496  00000000  00000000  0000155c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000192  00000000  00000000  000019f2  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000060  00000000  00000000  00001b84  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   8:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  10:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  14:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  18:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  1c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  20:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  24:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  28:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  2c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  30:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  34:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  38:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  3c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  40:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  44:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  48:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  4c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  50:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d8 e0       	ldi	r29, 0x08	; 8
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+  60:	0e 94 36 00 	call	0x6c	; 0x6c <main>
+  64:	0c 94 8f 00 	jmp	0x11e	; 0x11e <_exit>
+
+00000068 <__bad_interrupt>:
+  68:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000006c <main>:
+#include "MCAL/I2C_interface.h"
+
+
+int main(void)
+{
+    I2C_voidMasterInit();
+  6c:	0e 94 43 00 	call	0x86	; 0x86 <I2C_voidMasterInit>
+	I2C_enuSendStartCondition();
+  70:	0e 94 52 00 	call	0xa4	; 0xa4 <I2C_enuSendStartCondition>
+	I2C_enuSendSlaveAddWithWrite(1);
+  74:	81 e0       	ldi	r24, 0x01	; 1
+  76:	0e 94 63 00 	call	0xc6	; 0xc6 <I2C_enuSendSlaveAddWithWrite>
+	I2C_enuMasterSendDataByte('A');
+  7a:	81 e4       	ldi	r24, 0x41	; 65
+  7c:	0e 94 79 00 	call	0xf2	; 0xf2 <I2C_enuMasterSendDataByte>
+	I2C_voidSendStopCondition();
+  80:	0e 94 88 00 	call	0x110	; 0x110 <I2C_voidSendStopCondition>
+  84:	ff cf       	rjmp	.-2      	; 0x84 <main+0x18>
+
+00000086 <I2C_voidMasterInit>:
+		*Copy_pu8Data = TWDR;
+	}
+
+
+	return Local_enuState;
+}
+  86:	81 b1       	in	r24, 0x01	; 1
+  88:	8d 7f       	andi	r24, 0xFD	; 253
+  8a:	81 b9       	out	0x01, r24	; 1
+  8c:	81 b1       	in	r24, 0x01	; 1
+  8e:	8e 7f       	andi	r24, 0xFE	; 254
+  90:	81 b9       	out	0x01, r24	; 1
+  92:	82 e3       	ldi	r24, 0x32	; 50
+  94:	80 b9       	out	0x00, r24	; 0
+  96:	86 b7       	in	r24, 0x36	; 54
+  98:	80 64       	ori	r24, 0x40	; 64
+  9a:	86 bf       	out	0x36, r24	; 54
+  9c:	86 b7       	in	r24, 0x36	; 54
+  9e:	84 60       	ori	r24, 0x04	; 4
+  a0:	86 bf       	out	0x36, r24	; 54
+  a2:	08 95       	ret
+
+000000a4 <I2C_enuSendStartCondition>:
+  a4:	86 b7       	in	r24, 0x36	; 54
+  a6:	80 62       	ori	r24, 0x20	; 32
+  a8:	86 bf       	out	0x36, r24	; 54
+  aa:	86 b7       	in	r24, 0x36	; 54
+  ac:	80 68       	ori	r24, 0x80	; 128
+  ae:	86 bf       	out	0x36, r24	; 54
+  b0:	06 b6       	in	r0, 0x36	; 54
+  b2:	07 fe       	sbrs	r0, 7
+  b4:	fd cf       	rjmp	.-6      	; 0xb0 <I2C_enuSendStartCondition+0xc>
+  b6:	81 b1       	in	r24, 0x01	; 1
+  b8:	88 7f       	andi	r24, 0xF8	; 248
+  ba:	88 30       	cpi	r24, 0x08	; 8
+  bc:	11 f4       	brne	.+4      	; 0xc2 <I2C_enuSendStartCondition+0x1e>
+  be:	80 e0       	ldi	r24, 0x00	; 0
+  c0:	08 95       	ret
+  c2:	81 e0       	ldi	r24, 0x01	; 1
+  c4:	08 95       	ret
+
+000000c6 <I2C_enuSendSlaveAddWithWrite>:
+  c6:	88 0f       	add	r24, r24
+  c8:	83 b9       	out	0x03, r24	; 3
+  ca:	83 b1       	in	r24, 0x03	; 3
+  cc:	8e 7f       	andi	r24, 0xFE	; 254
+  ce:	83 b9       	out	0x03, r24	; 3
+  d0:	86 b7       	in	r24, 0x36	; 54
+  d2:	8f 7d       	andi	r24, 0xDF	; 223
+  d4:	86 bf       	out	0x36, r24	; 54
+  d6:	86 b7       	in	r24, 0x36	; 54
+  d8:	80 68       	ori	r24, 0x80	; 128
+  da:	86 bf       	out	0x36, r24	; 54
+  dc:	06 b6       	in	r0, 0x36	; 54
+  de:	07 fe       	sbrs	r0, 7
+  e0:	fd cf       	rjmp	.-6      	; 0xdc <I2C_enuSendSlaveAddWithWrite+0x16>
+  e2:	81 b1       	in	r24, 0x01	; 1
+  e4:	88 7f       	andi	r24, 0xF8	; 248
+  e6:	88 31       	cpi	r24, 0x18	; 24
+  e8:	11 f4       	brne	.+4      	; 0xee <I2C_enuSendSlaveAddWithWrite+0x28>
+  ea:	80 e0       	ldi	r24, 0x00	; 0
+  ec:	08 95       	ret
+  ee:	83 e0       	ldi	r24, 0x03	; 3
+  f0:	08 95       	ret
+
+000000f2 <I2C_enuMasterSendDataByte>:
+  f2:	83 b9       	out	0x03, r24	; 3
+  f4:	86 b7       	in	r24, 0x36	; 54
+  f6:	80 68       	ori	r24, 0x80	; 128
+  f8:	86 bf       	out	0x36, r24	; 54
+  fa:	06 b6       	in	r0, 0x36	; 54
+  fc:	07 fe       	sbrs	r0, 7
+  fe:	fd cf       	rjmp	.-6      	; 0xfa <I2C_enuMasterSendDataByte+0x8>
+ 100:	81 b1       	in	r24, 0x01	; 1
+ 102:	88 7f       	andi	r24, 0xF8	; 248
+ 104:	88 32       	cpi	r24, 0x28	; 40
+ 106:	11 f4       	brne	.+4      	; 0x10c <I2C_enuMasterSendDataByte+0x1a>
+ 108:	80 e0       	ldi	r24, 0x00	; 0
+ 10a:	08 95       	ret
+ 10c:	85 e0       	ldi	r24, 0x05	; 5
+ 10e:	08 95       	ret
+
+00000110 <I2C_voidSendStopCondition>:
+}*/
+
+void I2C_voidSendStopCondition(void)
+{
+	//Stop Condition
+	SET_BIT(TWCR,TWCR_TWSTO);
+ 110:	86 b7       	in	r24, 0x36	; 54
+ 112:	80 61       	ori	r24, 0x10	; 16
+ 114:	86 bf       	out	0x36, r24	; 54
+
+	//Clear Flag
+	SET_BIT(TWCR,TWCR_TWINT);
+ 116:	86 b7       	in	r24, 0x36	; 54
+ 118:	80 68       	ori	r24, 0x80	; 128
+ 11a:	86 bf       	out	0x36, r24	; 54
+ 11c:	08 95       	ret
+
+0000011e <_exit>:
+ 11e:	f8 94       	cli
+
+00000120 <__stop_program>:
+ 120:	ff cf       	rjmp	.-2      	; 0x120 <__stop_program>

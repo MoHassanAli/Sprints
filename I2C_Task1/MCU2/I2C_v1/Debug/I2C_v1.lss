@@ -1,0 +1,237 @@
+
+I2C_v1.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000114  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  00000168  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  00000168  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000198  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 000000c8  00000000  00000000  000001d4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00000a49  00000000  00000000  0000029c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000688  00000000  00000000  00000ce5  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000602  00000000  00000000  0000136d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  0000014c  00000000  00000000  00001970  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    0000056f  00000000  00000000  00001abc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    0000046b  00000000  00000000  0000202b  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000098  00000000  00000000  00002496  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   8:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  10:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  14:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  18:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  1c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  20:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  24:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  28:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  2c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  30:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  34:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  38:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  3c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  40:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  44:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  48:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  4c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  50:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d8 e0       	ldi	r29, 0x08	; 8
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+  60:	0e 94 56 00 	call	0xac	; 0xac <main>
+  64:	0c 94 88 00 	jmp	0x110	; 0x110 <_exit>
+
+00000068 <__bad_interrupt>:
+  68:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000006c <DIO_VidSetPortDirection>:
+	}
+}
+
+void DIO_VidSetPortDirection(uint8_t copy_U8Port ,uint8_t copy_U8Direction)
+{
+	switch(copy_U8Port)
+  6c:	81 30       	cpi	r24, 0x01	; 1
+  6e:	41 f0       	breq	.+16     	; 0x80 <DIO_VidSetPortDirection+0x14>
+  70:	28 f0       	brcs	.+10     	; 0x7c <DIO_VidSetPortDirection+0x10>
+  72:	82 30       	cpi	r24, 0x02	; 2
+  74:	39 f0       	breq	.+14     	; 0x84 <DIO_VidSetPortDirection+0x18>
+  76:	83 30       	cpi	r24, 0x03	; 3
+  78:	39 f0       	breq	.+14     	; 0x88 <DIO_VidSetPortDirection+0x1c>
+  7a:	08 95       	ret
+	{
+		case PortA :DDRA = copy_U8Direction; break;
+  7c:	6a bb       	out	0x1a, r22	; 26
+  7e:	08 95       	ret
+		case PortB :DDRB = copy_U8Direction; break;
+  80:	67 bb       	out	0x17, r22	; 23
+  82:	08 95       	ret
+		case PortC :DDRC = copy_U8Direction; break;
+  84:	64 bb       	out	0x14, r22	; 20
+  86:	08 95       	ret
+		case PortD :DDRD = copy_U8Direction; break;
+  88:	61 bb       	out	0x11, r22	; 17
+  8a:	08 95       	ret
+
+0000008c <DIO_VidSetPortValue>:
+
+}
+
+void DIO_VidSetPortValue(uint8_t copy_U8Port ,uint8_t copy_U8Value)
+{
+	switch(copy_U8Port)
+  8c:	81 30       	cpi	r24, 0x01	; 1
+  8e:	41 f0       	breq	.+16     	; 0xa0 <DIO_VidSetPortValue+0x14>
+  90:	28 f0       	brcs	.+10     	; 0x9c <DIO_VidSetPortValue+0x10>
+  92:	82 30       	cpi	r24, 0x02	; 2
+  94:	39 f0       	breq	.+14     	; 0xa4 <DIO_VidSetPortValue+0x18>
+  96:	83 30       	cpi	r24, 0x03	; 3
+  98:	39 f0       	breq	.+14     	; 0xa8 <DIO_VidSetPortValue+0x1c>
+  9a:	08 95       	ret
+	{
+		case PortA :PORTA = copy_U8Value; break;
+  9c:	6b bb       	out	0x1b, r22	; 27
+  9e:	08 95       	ret
+		case PortB :PORTB = copy_U8Value; break;
+  a0:	68 bb       	out	0x18, r22	; 24
+  a2:	08 95       	ret
+		case PortC :PORTC = copy_U8Value; break;
+  a4:	65 bb       	out	0x15, r22	; 21
+  a6:	08 95       	ret
+		case PortD :PORTD = copy_U8Value; break;
+  a8:	62 bb       	out	0x12, r22	; 18
+  aa:	08 95       	ret
+
+000000ac <main>:
+#include "MCAL/DIO_Interface.h"
+#include "MCAL/I2C_interface.h"
+
+
+int main(void)
+{
+  ac:	cf 93       	push	r28
+  ae:	df 93       	push	r29
+  b0:	1f 92       	push	r1
+  b2:	cd b7       	in	r28, 0x3d	; 61
+  b4:	de b7       	in	r29, 0x3e	; 62
+    uint8_t DataRecieved;
+	
+	I2C_voidSlaveInit(1);
+  b6:	81 e0       	ldi	r24, 0x01	; 1
+  b8:	0e 94 6b 00 	call	0xd6	; 0xd6 <I2C_voidSlaveInit>
+	DIO_VidSetPortDirection(PortB,255);
+  bc:	6f ef       	ldi	r22, 0xFF	; 255
+  be:	81 e0       	ldi	r24, 0x01	; 1
+  c0:	0e 94 36 00 	call	0x6c	; 0x6c <DIO_VidSetPortDirection>
+	I2C_enuMasterReadDataByte(&DataRecieved);
+  c4:	ce 01       	movw	r24, r28
+  c6:	01 96       	adiw	r24, 0x01	; 1
+  c8:	0e 94 77 00 	call	0xee	; 0xee <I2C_enuMasterReadDataByte>
+	DIO_VidSetPortValue(PortB,DataRecieved);
+  cc:	69 81       	ldd	r22, Y+1	; 0x01
+  ce:	81 e0       	ldi	r24, 0x01	; 1
+  d0:	0e 94 46 00 	call	0x8c	; 0x8c <DIO_VidSetPortValue>
+  d4:	ff cf       	rjmp	.-2      	; 0xd4 <main+0x28>
+
+000000d6 <I2C_voidSlaveInit>:
+
+	//}
+
+	return Local_enuState;
+
+}
+  d6:	88 0f       	add	r24, r24
+  d8:	82 b9       	out	0x02, r24	; 2
+  da:	86 b7       	in	r24, 0x36	; 54
+  dc:	80 64       	ori	r24, 0x40	; 64
+  de:	86 bf       	out	0x36, r24	; 54
+  e0:	86 b7       	in	r24, 0x36	; 54
+  e2:	84 60       	ori	r24, 0x04	; 4
+  e4:	86 bf       	out	0x36, r24	; 54
+  e6:	06 b6       	in	r0, 0x36	; 54
+  e8:	07 fe       	sbrs	r0, 7
+  ea:	fd cf       	rjmp	.-6      	; 0xe6 <I2C_voidSlaveInit+0x10>
+  ec:	08 95       	ret
+
+000000ee <I2C_enuMasterReadDataByte>:
+
+I2C_Error_States I2C_enuMasterReadDataByte(uint8_t * Copy_pu8Data)
+{
+  ee:	fc 01       	movw	r30, r24
+	I2C_Error_States Local_enuState = I2C_Ok;
+
+	/* Clear flag */
+	SET_BIT(TWCR,TWCR_TWINT);
+  f0:	96 b7       	in	r25, 0x36	; 54
+  f2:	90 68       	ori	r25, 0x80	; 128
+  f4:	96 bf       	out	0x36, r25	; 54
+
+	/* Polling on the Flag */
+	while(!GET_BIT(TWCR,TWCR_TWINT));
+  f6:	06 b6       	in	r0, 0x36	; 54
+  f8:	07 fe       	sbrs	r0, 7
+  fa:	fd cf       	rjmp	.-6      	; 0xf6 <I2C_enuMasterReadDataByte+0x8>
+	/* Check Status code */
+	if((TWSR & I2C_STATUS_CODE_MASK) != I2C_MR_DATA_ACK)
+  fc:	91 b1       	in	r25, 0x01	; 1
+  fe:	98 7f       	andi	r25, 0xF8	; 248
+ 100:	90 38       	cpi	r25, 0x80	; 128
+ 102:	21 f4       	brne	.+8      	; 0x10c <I2C_enuMasterReadDataByte+0x1e>
+	{
+		Local_enuState = I2C_MR_DATA_Error;
+	}
+	else
+	{
+		*Copy_pu8Data = TWDR;
+ 104:	83 b1       	in	r24, 0x03	; 3
+ 106:	80 83       	st	Z, r24
+
+}
+
+I2C_Error_States I2C_enuMasterReadDataByte(uint8_t * Copy_pu8Data)
+{
+	I2C_Error_States Local_enuState = I2C_Ok;
+ 108:	80 e0       	ldi	r24, 0x00	; 0
+ 10a:	08 95       	ret
+	/* Polling on the Flag */
+	while(!GET_BIT(TWCR,TWCR_TWINT));
+	/* Check Status code */
+	if((TWSR & I2C_STATUS_CODE_MASK) != I2C_MR_DATA_ACK)
+	{
+		Local_enuState = I2C_MR_DATA_Error;
+ 10c:	86 e0       	ldi	r24, 0x06	; 6
+		*Copy_pu8Data = TWDR;
+	}
+
+
+	return Local_enuState;
+}
+ 10e:	08 95       	ret
+
+00000110 <_exit>:
+ 110:	f8 94       	cli
+
+00000112 <__stop_program>:
+ 112:	ff cf       	rjmp	.-2      	; 0x112 <__stop_program>
